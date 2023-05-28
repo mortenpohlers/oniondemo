@@ -13,18 +13,18 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class BerechnungsServiceImpl  implements BerechnungsService {
+public class BerechnungsServiceImpl implements BerechnungsService {
 
 
     private final AlterService alterService;
     private final BerechnungsErgebnisRepository repository;
     private final BerechnungsVorgabeRepository vorgabeRepository;
-    private static final Integer ANZAHL_RENTENZAHLUNGEN = 20*12;
+    private static final Integer ANZAHL_RENTENZAHLUNGEN = 20 * 12;
 
 
-    private Double berechneBeitrag(Integer anzahlRaten, Double wunschrente, Double alterszuschlag){
-        var bedarf = wunschrente* ANZAHL_RENTENZAHLUNGEN;
-        var rate = bedarf/anzahlRaten*alterszuschlag;
+    private Double berechneBeitrag(Integer anzahlRaten, Double wunschrente, Double alterszuschlag) {
+        var bedarf = wunschrente * ANZAHL_RENTENZAHLUNGEN;
+        var rate = bedarf / anzahlRaten * alterszuschlag;
         return rate;
     }
 
@@ -32,8 +32,8 @@ public class BerechnungsServiceImpl  implements BerechnungsService {
     public BerechnungsErgebnisEntity berechneUndSpeicher(BerechnungsVorgabeEntity vorgabe) {
         var uuid = UUID.randomUUID().toString();
         vorgabe.setUuid(uuid);
-        var altersdaten = alterService.berechneAltersdaten(vorgabe.getGeburtsDatum(),vorgabe.getZahlungAb());
-        var beitrag = berechneBeitrag(altersdaten.getAnzahlRaten(),vorgabe.getWunschrente(), altersdaten.getAlterszuschlag());
+        var altersdaten = alterService.berechneAltersdaten(vorgabe.getGeburtsDatum(), vorgabe.getZahlungAb());
+        var beitrag = berechneBeitrag(altersdaten.getAnzahlRaten(), vorgabe.getWunschrente(), altersdaten.getAlterszuschlag());
         var ergebnis = BerechnungsErgebnisEntity.builder()
                 .uuid(uuid)
                 .berechnungsVorgabe(vorgabe)
@@ -47,6 +47,6 @@ public class BerechnungsServiceImpl  implements BerechnungsService {
 
     @Override
     public BerechnungsErgebnisEntity findBerechnungsergebnis(String uuid) {
-        return null;
+        return repository.findById(uuid).orElseThrow(() -> new IllegalArgumentException(String.format("UUID '%s' nicht gefunden", uuid)));
     }
 }
