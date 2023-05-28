@@ -1,9 +1,9 @@
-package de.gothaer.glsla.oniondemo.adapter.rest;
+package de.gothaer.glsla.oniondemo.adapter.rest.controller;
 
 import de.gothaer.glsla.oniondemo.adapter.rest.dto.BerechnungsErgebnisDto;
 import de.gothaer.glsla.oniondemo.adapter.rest.dto.BerechnungsVorgabeDto;
-import de.gothaer.glsla.oniondemo.adapter.rest.dto.mapper.BerechnungsErgebnisMapper;
-import de.gothaer.glsla.oniondemo.adapter.rest.dto.mapper.BerechnungsVorgabeMapper;
+import de.gothaer.glsla.oniondemo.adapter.rest.dto.mapper.BerechnungsErgebnisDtoMapper;
+import de.gothaer.glsla.oniondemo.adapter.rest.dto.mapper.BerechnungsVorgabeDtoMapper;
 import de.gothaer.glsla.oniondemo.domain.services.BerechnungsService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Berechnung", description = "Fachlich völlig falsche Tarifierung als Demo onion Architektur")
 public class BerechnungController {
 
-    private final BerechnungsVorgabeMapper vorgabeMapper;
-    private final BerechnungsErgebnisMapper ergebnisMapper;
+    private final BerechnungsVorgabeDtoMapper vorgabeMapper;
+    private final BerechnungsErgebnisDtoMapper ergebnisMapper;
     private final BerechnungsService berechnungsService;
 
     @Operation(summary = "Eine simple Berechnung. Fachlicher nonsense",
@@ -35,7 +35,7 @@ public class BerechnungController {
                             responseCode = "200",
                             description = "Das Berechnung wurde durchgeführt und gespeichert",
                             content = @Content(
-                                schema = @Schema(implementation = BerechnungsErgebnisDto.class)
+                                    schema = @Schema(implementation = BerechnungsErgebnisDto.class)
                             )
                     )
             })
@@ -47,11 +47,29 @@ public class BerechnungController {
     }
 
     @Operation(summary = "Lädt eine vorher durchgeführte Berechnung.",
-    tags= {"Berechnung"},
-    parameters = {@Parameter(in = ParameterIn.PATH, name = "uuid", description = "UUID der Berechnung. wird bei der Berechnung vergeben.")})
+            tags = {"Berechnung"},
+            parameters = {@Parameter(in = ParameterIn.PATH, name = "uuid", description = "UUID der Berechnung. wird bei der Berechnung vergeben.")},
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "Die gespeicherte Berechnung",
+                            content = @Content(
+                                    schema = @Schema(implementation = BerechnungsErgebnisDto.class)
+                            )
+                    ),
+                    @ApiResponse(
+                            responseCode = "404",
+                            description = "Unter der UUID wurde keine Ergebnis gefunden",
+                            content = @Content(schema = @Schema(hidden = true))
+                    )
+            })
 
     @GetMapping(value = "/{uuid}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<BerechnungsErgebnisDto> findErgebnis(@PathVariable String uuid) {
-        return ResponseEntity.ok(ergebnisMapper.convert(berechnungsService.findBerechnungsergebnis(uuid)));
+        try {
+            return ResponseEntity.ok(ergebnisMapper.convert(berechnungsService.findBerechnungsergebnis(uuid)));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

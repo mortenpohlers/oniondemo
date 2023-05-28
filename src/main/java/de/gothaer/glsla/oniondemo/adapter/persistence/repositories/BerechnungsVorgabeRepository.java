@@ -1,4 +1,4 @@
-package de.gothaer.glsla.oniondemo.adapter.persistence;
+package de.gothaer.glsla.oniondemo.adapter.persistence.repositories;
 
 import de.gothaer.glsla.oniondemo.adapter.persistence.entity.BerechnungsVorgabeEntity;
 import org.springframework.data.repository.CrudRepository;

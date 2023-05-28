@@ -14,11 +14,11 @@ public class OnionArchTest {
         JavaClasses jc = new ClassFileImporter().importPackages("de.gothaer.glsla.oniondemo");
 
         var onionArchitecture = onionArchitecture()
-                .domainModels("de.gothaer.glsla.oniondemo.domain.aggregates")
-                .domainServices("de.gothaer.glsla.oniondemo.domain.services")
-                .applicationServices("de.gothaer.glsla.oniondemo.application.services")
-                .adapter("rest","de.gothaer.glsla.oniondemo.adapter.rest")
-                .adapter("persistence","de.gothaer.glsla.oniondemo.adapter.persistence");
+                .domainModels("de.gothaer.glsla.oniondemo.domain.aggregates..")
+                .domainServices("de.gothaer.glsla.oniondemo.domain.services..")
+                .applicationServices("de.gothaer.glsla.oniondemo.application.services..")
+                .adapter("rest","de.gothaer.glsla.oniondemo.adapter.rest..")
+                .adapter("persistence","de.gothaer.glsla.oniondemo.adapter.persistence..");
         onionArchitecture.check(jc);
     }
 
