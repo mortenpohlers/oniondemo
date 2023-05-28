@@ -9,7 +9,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -41,7 +40,7 @@ public class BerechnungController {
                     )
             })
     @PostMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<BerechnungsErgebnisDto> berechne(@RequestBody(required = true) BerechnungsVorgabeDto vorgabeDto) {
+    public ResponseEntity<BerechnungsErgebnisDto> berechne(@RequestBody() BerechnungsVorgabeDto vorgabeDto) {
         var vorgabeEntity = vorgabeMapper.convert(vorgabeDto);
         var ergebnisEntity = berechnungsService.berechneUndSpeicher(vorgabeEntity);
         return ResponseEntity.ok(ergebnisMapper.convert(ergebnisEntity));

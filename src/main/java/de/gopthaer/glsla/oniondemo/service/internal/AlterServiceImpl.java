@@ -18,8 +18,8 @@ public class AlterServiceImpl implements AlterService {
         II(50, 1.5),
         III(60, 2.0),
         O(0, 1.0);
-        Integer alter;
-        Double value;
+        final Integer alter;
+        final Double value;
 
     }
 
@@ -29,8 +29,8 @@ public class AlterServiceImpl implements AlterService {
         I(1970, 67),
         II(2000, 75);
 
-        Integer jahrgang;
-        Integer eintrittsalter;
+        final Integer jahrgang;
+        final Integer eintrittsalter;
     }
 
 

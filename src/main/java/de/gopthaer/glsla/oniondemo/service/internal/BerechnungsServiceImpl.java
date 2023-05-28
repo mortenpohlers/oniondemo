@@ -24,8 +24,7 @@ public class BerechnungsServiceImpl implements BerechnungsService {
 
     private Double berechneBeitrag(Integer anzahlRaten, Double wunschrente, Double alterszuschlag) {
         var bedarf = wunschrente * ANZAHL_RENTENZAHLUNGEN;
-        var rate = bedarf / anzahlRaten * alterszuschlag;
-        return rate;
+        return bedarf / anzahlRaten * alterszuschlag;
     }
 
     @Override

@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Builder
 @NoArgsConstructor @AllArgsConstructor
 public class BerechnungsVorgabeDto {
-    @Schema(example = "", description = "Sollte beim request leer sein und wird bei einer Berechnung neu generiert.")
+    @Schema(example = "05a45845-ac9d-4ac1-b369-81e8f91d4edb", description = "Sollte beim request leer sein und wird bei einer Berechnung neu generiert.")
     private String uuid;
     @Schema(example= "1974-01-01", description = "Geburtsdatum der VP.")
     private LocalDate geburtsDatum;
