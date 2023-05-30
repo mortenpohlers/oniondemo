@@ -8,7 +8,7 @@
         <version>3.1.0</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>de.gopthaer.glsla</groupId>
+    <groupId>de.gothaer.glsla</groupId>
     <artifactId>oniondemo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>oniondemo</name>
@@ -120,6 +120,26 @@
                     </annotationProcessorPaths>
                 </configuration>
 
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.2.2</version>
+                <executions>
+                    <execution>
+                        <id>domain-jar</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                        <configuration>
+                            <classifier>domain</classifier>
+                            <includes>
+                                <include>de/gothaer/glsla/oniondemo/domain/**</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

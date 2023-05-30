@@ -30,6 +30,5 @@ public class OnionArchTest {
                 .resideInAnyPackage("..springframework..")
                 .orShould().dependOnClassesThat().resideInAnyPackage("jakarta.persistence..");
         domainTechnicFree.check(jc);
-
     }
 }

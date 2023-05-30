@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class BerechnungsServiceConfiguration {
 
     private final BerechnungsRepository repository;
+    // Wirkt hier völlig verloren, aber auf der Ebene würde sich chaching, transactionsmanagement etc. abspielen.
     @Bean
     public BerechnungsService createBerechnungsservice(){
         return new BerechnungsServiceImpl(repository);
