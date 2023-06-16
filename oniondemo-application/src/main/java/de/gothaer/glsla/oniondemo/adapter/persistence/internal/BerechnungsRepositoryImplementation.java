@@ -8,7 +8,6 @@ import de.gothaer.glsla.oniondemo.domain.services.BerechnungsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
-import java.lang.constant.ConstantDesc;
 import java.util.Optional;
 
 @Component
