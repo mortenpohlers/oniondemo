@@ -1,4 +1,4 @@
-# Demo Projekt für eine Onionarchitekt
+# Demo Projekt für eine Onion Architektur
 
 ## Module
 
